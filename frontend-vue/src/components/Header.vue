@@ -1,6 +1,6 @@
 <template>
 <div>
-    <v-app-bar flat dark dense app>
+    <v-app-bar flat dark app color="#6A76AB" prominent src="https://picsum.photos/1920/1080?random">
         <v-app-bar-nav-icon @click="drawer = !drawer" class="hidden-lg-and-up"></v-app-bar-nav-icon>
         <v-app-bar-title>BeyondF1 - Admin panel</v-app-bar-title>
         <v-spacer></v-spacer>
