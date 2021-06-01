@@ -9,7 +9,7 @@
             <v-icon class="pl-1">mdi-logout</v-icon>
         </v-btn>
     </v-app-bar>
-    <v-navigation-drawer app v-model="drawer" dark class="deep-purple" width = "330">
+    <v-navigation-drawer app v-model="drawer" dark class="deep-purple">
         <v-list-item>
             <v-list-item-content>
                 <v-list-item-title>Admin panel</v-list-item-title>
