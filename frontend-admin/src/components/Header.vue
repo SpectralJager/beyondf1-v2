@@ -4,7 +4,7 @@
         <v-app-bar-nav-icon @click="drawer = !drawer" class="hidden-lg-and-up"></v-app-bar-nav-icon>
         <v-app-bar-title>BeyondF1 - Admin panel</v-app-bar-title>
         <v-spacer></v-spacer>
-        <v-btn color="red">
+        <v-btn color="red" @click="$store.state.token=''" href="#/admin/login">
             <span>Logout</span>
             <v-icon class="pl-1">mdi-logout</v-icon>
         </v-btn>
