@@ -16,7 +16,7 @@
         <v-list v-if="tasks.length > 0" max-height="600px" class="overflow-y-auto">
           <v-container fluid v-for="task, index in tasks" :key="index">
             <v-list-item>
-              <v-checkbox v-model="task.check" :label="task.text" />
+              <v-checkbox v-model="task.check" :label="task.text" :class="{'text-decoration-line-through' : task.check }" />
               <v-spacer></v-spacer>
               <v-btn fab text icon small @click.prevent="deleteTask(task.text)">
                 <v-icon color="red">mdi-delete</v-icon>
