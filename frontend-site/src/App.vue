@@ -1,20 +1,36 @@
 <template>
-  <v-app>
+  <v-app style="overflow-x: hidden;">
     <Header />
-    <v-content app>
-      <v-container style="padding: 0;">
+    <v-main app>
+      <v-container fluid style="padding: 0;">
         <router-view></router-view>
       </v-container>
-    </v-content>
+    <Footer />    
+    </v-main>
   </v-app>
 </template>
 
 <script>
 import Header from './components/Header.vue';
+import Footer from './components/Footer.vue';
+
 export default {
   components: {
     Header,
+    Footer,
   }
   
 }
 </script>
+
+<style lang="scss">
+.v-main{
+  //background: linear-gradient(75deg, #ebf4f5, #b5c6e0);
+}
+.bg-mixer{
+  background-position: center;
+  background-size: cover;
+  background-color: blue;
+  background-blend-mode: multiply;
+}
+</style>

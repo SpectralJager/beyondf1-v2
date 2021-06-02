@@ -1,9 +1,10 @@
 <template>
 <div>
-    <v-fab-transition >
-        <v-btn @click="drawer = !drawer" absolute top right color="primary" fab small class="hidden-lg-and-up mt-9" style="z-index: 4;"><v-icon>mdi-menu</v-icon></v-btn>
-    </v-fab-transition>
-    <v-navigation-drawer app v-model="drawer" dark>
+    <v-app-bar app dense dark>
+        <v-app-bar-nav-icon @click="drawer= !drawer" class="hidden-lg-and-up">
+        </v-app-bar-nav-icon>
+    </v-app-bar>
+    <v-navigation-drawer app v-model="drawer" dark class="bg-mixer">
         <v-list-item>
             <v-list-item-content>
                 <v-list-item-title class="display-2">Beyond<span class="red--text">F1</span></v-list-item-title>
@@ -41,9 +42,6 @@ export default {
 <style lang="scss">
 .v-navigation-drawer{
     background-image: url("/navbar-back.jpg");
-    background-position: center;
-    background-size: cover;
-    background-color: blue;
-    background-blend-mode: multiply;
+    
 }
 </style>
