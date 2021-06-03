@@ -9,7 +9,7 @@ export default new Vuex.Store({
   },
   mutations: {
     logout(){
-      state.token = "";
+      state.token = "1";
     }
   },
   actions: {

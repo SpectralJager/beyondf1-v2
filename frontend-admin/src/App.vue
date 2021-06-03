@@ -1,6 +1,6 @@
 <template>
   <v-app >
-    <Header v-if="$store.state.token"/>
+    <Header />
     <v-main>
       <v-container fluid>
         <router-view/>
@@ -21,14 +21,7 @@ export default {
     return {
     }
   },
-  created(){
-    if(this.$store.state.token == ""){
-      this.$router.push("login");
-    }
-    else{
-      this.$router.push("dashboard");
-    }
-  }
+  
   
 
 };
