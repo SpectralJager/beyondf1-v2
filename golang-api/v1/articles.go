@@ -46,6 +46,7 @@ func ApiArticles(w http.ResponseWriter, r *http.Request) {
 	} else {
 		next = page + 1
 	}
+	//fmt.Println(prev, next, count)
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]interface{}{"articles": articles, "msg": msg, "next": next, "prev": prev})
 }

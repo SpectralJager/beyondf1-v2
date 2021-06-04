@@ -116,6 +116,12 @@
 
     components: {
     },
+    mounted(){
+      this.$store.commit('toggleLoad');
+      setTimeout(() => {
+        this.$store.commit('toggleLoad');
+      }, 1000)
+    }
   }
 </script>
 
@@ -127,4 +133,5 @@
   box-shadow: 0px 0px 80px gray;
   background-blend-mode: multiply;
 }
+
 </style>

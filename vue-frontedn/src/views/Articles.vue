@@ -1,19 +1,22 @@
 <template>
 <v-container fluid>
     <v-sheet class="articles--list">
-        <v-card height="750px" outlined v-for="article in articles" :key="article.id" style="position:relative;" class="">
-            <v-img height="50%" width="100%" :src="article.image_url"></v-img>
-            <div>
-                <v-card-title class="text-h6">{{ article.title }}</v-card-title>
-                <v-card-subtitle class="my-1 ">
-                    <v-chip class="white--text text-subtitle-1" small dense flat :color="article.tag" >{{ article.tag }}</v-chip>
-                    <span class="ml-4 text-subtitle-1">{{ moment(article.createdat).format('MMMM Do YYYY, h:mm:ss a') }}</span>
-                </v-card-subtitle>
-                <v-card-text v-html="getSlice(article.text)" class="text-body-1"></v-card-text>
-            </div>
-            <v-btn color="red" class="white--text" absolute bottom left :to="'/article/' + article.id" @click="">Read more</v-btn>
-        </v-card>
-        
+        <template v-for="article in articles" >
+            <v-hover v-slot="{ hover }">
+                <v-card height="750px" outlined :key="article.id" style="position:relative;" class="article-card" :dark=" hover ? true : false" :elevetion="hover ? 12 : 2">
+                    <v-img height="50%" width="100%" :src="article.image_url"></v-img>
+                    <div>
+                        <v-card-title class="text-h6">{{ article.title }}</v-card-title>
+                        <v-card-subtitle class="my-1 ">
+                            <v-chip class="white--text text-subtitle-1" small dense flat :color="article.tag" >{{ article.tag }}</v-chip>
+                            <span class="ml-4 text-subtitle-1">{{ moment(article.createdat).format('MMMM Do YYYY, h:mm:ss a') }}</span>
+                        </v-card-subtitle>
+                        <v-card-text v-html="getSlice(article.text)" class="text-body-1"></v-card-text>
+                    </div>
+                    <v-btn color="red" class="white--text" absolute bottom left :to="'/article/' + article.id">Read more</v-btn>
+                </v-card>
+            </v-hover>
+        </template>
     </v-sheet>
     <v-row width="100%">
         <v-col class="d-flex justify-center my-5" width="100%">
@@ -24,6 +27,7 @@
         </v-col>
     </v-row>
 </v-container>
+
 </template>
 
 <script>
@@ -44,6 +48,7 @@ export default {
             return text.slice(0,150)+"...";
         },
         async fetchArticles(){
+            this.$store.commit('toggleLoad');
             var url = this.$store.state.backend_url + "/articles/" + this.page + "/" + this.num;
             await fetch(url, {
                 method: "GET",
@@ -58,6 +63,9 @@ export default {
                 this.prev = data.prev;
                 }
             });
+            setTimeout(() => {
+                this.$store.commit('toggleLoad');
+            }, 1000)
         },
         incPage(){
             if(this.next > 0){

@@ -43,7 +43,7 @@ const (
 	left join tags t on temp.tag_id = t.id
 	where a.id = $1;
 	`
-	countArticles      = `select count(id) from article`
+	countArticles      = `select count(id) from articles;`
 	countArticlesByTag = `
 	select count(a.id)
 	from articles a 
