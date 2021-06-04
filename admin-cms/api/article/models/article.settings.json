@@ -51,20 +51,19 @@
         }
       }
     },
-    "text": {
-      "type": "richtext",
-      "default": "Some fancy text",
-      "required": true,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
     "tags": {
       "collection": "tag",
       "via": "articles",
       "dominant": true
+    },
+    "text": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "richtext",
+      "required": true
     }
   }
 }

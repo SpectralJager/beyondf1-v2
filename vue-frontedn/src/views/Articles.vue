@@ -1,15 +1,15 @@
 <template>
 <v-container fluid>
     <v-sheet class="articles--list">
-        <v-card height="700px" outlined v-for="article in articles" :key="article.id" style="position:relative;">
+        <v-card height="750px" outlined v-for="article in articles" :key="article.id" style="position:relative;" class="">
             <v-img height="50%" width="100%" :src="article.image_url"></v-img>
             <div>
-                <v-card-title>{{ article.title }}</v-card-title>
-                <v-card-subtitle class="my-1">
-                    <v-chip class="white--text" small dense flat color="warning" >{{ article.tag }}</v-chip>
-                    <span class="ml-4">{{ moment(article.createdat).format('MMMM Do YYYY, h:mm:ss a') }}</span>
+                <v-card-title class="text-h6">{{ article.title }}</v-card-title>
+                <v-card-subtitle class="my-1 ">
+                    <v-chip class="white--text text-subtitle-1" small dense flat :color="article.tag" >{{ article.tag }}</v-chip>
+                    <span class="ml-4 text-subtitle-1">{{ moment(article.createdat).format('MMMM Do YYYY, h:mm:ss a') }}</span>
                 </v-card-subtitle>
-                <v-card-text v-html="getSlice(article.text)"></v-card-text>
+                <v-card-text v-html="getSlice(article.text)" class="text-body-1"></v-card-text>
             </div>
             <v-btn color="red" class="white--text" absolute bottom left :to="'/article/' + article.id" @click="">Read more</v-btn>
         </v-card>

@@ -73,7 +73,7 @@ func connectDB() (*sqlx.DB, error) {
 	db, err := sqlx.Open("postgres", psqlInfo)
 	if err != nil {
 		log.Println("Cant connect to db")
-		log.Fatalln(err)
+		log.Println(err)
 		return db, err
 	}
 	err = db.Ping()
@@ -108,7 +108,7 @@ func GetArticles(n, page int) (*[]Article, string, int) {
 	rows, err := db.Queryx(getArticles, n, n*(page-1))
 	if err != nil {
 		log.Println("Cant get rows!")
-		log.Fatalln(err)
+		log.Println(err)
 		return &articles, "unable", 0
 	}
 	defer rows.Close()
@@ -116,7 +116,7 @@ func GetArticles(n, page int) (*[]Article, string, int) {
 		var article Article
 		if err := rows.StructScan(&article); err != nil {
 			log.Println("Cant scan row")
-			log.Fatalln(err)
+			log.Println(err)
 			continue
 		}
 		articles = append(articles, article)
@@ -142,7 +142,7 @@ func GetArticlesByTag(n, page int, tag string) (*[]Article, string, int) {
 	rows, err := db.Queryx(getArticlesByTag, tag, n, n*(page-1))
 	if err != nil {
 		log.Println("Cant get rows!")
-		log.Fatalln(err)
+		log.Println(err)
 		return &articles, "unable", 0
 	}
 	defer rows.Close()
@@ -150,7 +150,7 @@ func GetArticlesByTag(n, page int, tag string) (*[]Article, string, int) {
 		var article Article
 		if err := rows.StructScan(&article); err != nil {
 			log.Println("Cant scan row")
-			log.Fatalln(err)
+			log.Println(err)
 			continue
 		}
 		articles = append(articles, article)
