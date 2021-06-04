@@ -22,18 +22,42 @@ const (
 
 // sql statements
 const (
-	getArticles        = `select * from api_article order by createdat desc limit $1 offset $2;`
-	getArticlesByTag   = `select * from api_article where tag = $1 order by createdat desc limit $2 offset $3;;`
-	getArticle         = `select * from api_article where id = $1;`
-	countArticles      = `select count(id) from api_article`
-	countArticlesByTag = `select count(id) from api_article where tag = $1`
+	getArticles = `
+	select a.id, a.title, a.text, a.created_at, a.image_url, a.source, t.tag
+	from articles a 
+	left join articles_tags__tags_articles temp on a.id = temp.article_id
+	left join tags t on temp.tag_id = t.id
+	order by a.created_at desc limit $1 offset $2;
+	`
+	getArticlesByTag = `
+	select a.id, a.title, a.text, a.created_at, a.image_url, a.source, t.tag
+	from articles a 
+	left join articles_tags__tags_articles temp on a.id = temp.article_id
+	left join tags t on temp.tag_id = t.id	
+	where t.tag = $1 order by a.created_at desc limit $2 offset $3;
+	`
+	getArticle = `
+	select a.id, a.title, a.text, a.created_at, a.image_url, a.source, t.tag
+	from articles a 
+	left join articles_tags__tags_articles temp on a.id = temp.article_id
+	left join tags t on temp.tag_id = t.id
+	where a.id = $1;
+	`
+	countArticles      = `select count(id) from article`
+	countArticlesByTag = `
+	select count(a.id)
+	from articles a 
+	left join articles_tags__tags_articles temp on a.id = temp.article_id
+	left join tags t on temp.tag_id = t.id
+	where t.id = $1;
+	`
 )
 
 // structures
 type Article struct {
 	ID        int       `json:"id" db:"id"`
 	Title     string    `json:"title" db:"title"`
-	CreatedAt time.Time `json:"createdat" db:"createdat"`
+	CreatedAt time.Time `json:"createdat" db:"created_at"`
 	Tag       string    `json:"tag" db:"tag"`
 	ImageUrl  string    `json:"image_url" db:"image_url"`
 	Text      string    `json:"text" db:"text"`

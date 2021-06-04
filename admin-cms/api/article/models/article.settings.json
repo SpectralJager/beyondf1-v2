@@ -1,0 +1,70 @@
+{
+  "kind": "collectionType",
+  "collectionName": "articles",
+  "info": {
+    "name": "article",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Article title",
+      "required": true,
+      "maxLength": 255,
+      "unique": true,
+      "minLength": 64,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "image_url": {
+      "type": "string",
+      "default": "Url of bacground image",
+      "required": true,
+      "maxLength": 512,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "source": {
+      "type": "string",
+      "default": "beyondf1.com",
+      "required": true,
+      "maxLength": 512,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "text": {
+      "type": "richtext",
+      "default": "Some fancy text",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "tags": {
+      "collection": "tag",
+      "via": "articles",
+      "dominant": true
+    }
+  }
+}
