@@ -2,7 +2,7 @@
 node_modules
 venv
 __pyc__
-/dist
+#/dist
 
 
 # local env files

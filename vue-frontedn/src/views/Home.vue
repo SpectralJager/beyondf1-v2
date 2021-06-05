@@ -7,7 +7,7 @@
             <div class="bg-gray white--text">
               <v-card-title class="text-xl-h1 text-h3 text-weight-black">Welcome to the <br> BeyondF1</v-card-title>
               <v-card-subtitle class="text-xl-h6 my-3 text-subtitle-1">Your guide through of the Ocean of empty talks to the Island of meaning!</v-card-subtitle>
-              <v-card-text class="text-xl-subtitle-1 text-body-1">Qui reprehenderit non qui incididunt occaecat laborum. Dolor excepteur amet occaecat velit exercitation. Sunt tempor incididunt aliquip ut nostrud laboris nulla. Laborum velit nostrud sunt in tempor eiusmod amet est fugiat consectetur commodo ullamco.</v-card-text>
+              <v-card-text class="text-xl-subtitle-1 text-body-1"></v-card-text>
             </div>
           </v-col>
         </v-container>
