@@ -110,7 +110,7 @@ func main() {
     // use sqlx.Open() for sql.Open() semantics
     db, err := sqlx.Connect("postgres", "user=foo dbname=bar sslmode=disable")
     if err != nil {
-        log.Fatalln(err)
+        log.Println(err)
     }
 
     // exec the schema or fail; multi-statement Exec behavior varies between
@@ -162,7 +162,7 @@ func main() {
     for rows.Next() {
         err := rows.StructScan(&place)
         if err != nil {
-            log.Fatalln(err)
+            log.Println(err)
         } 
         fmt.Printf("%#v\n", place)
     }

@@ -19,7 +19,7 @@ func ApiArticles(w http.ResponseWriter, r *http.Request) {
 	num, err := strconv.Atoi(vals["num"])
 	if err != nil {
 		log.Println("Cant decode request!")
-		log.Fatalln(err)
+		log.Println(err)
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]interface{}{"articles": articles, "msg": "unable"})
 		return
@@ -27,7 +27,7 @@ func ApiArticles(w http.ResponseWriter, r *http.Request) {
 	page, err := strconv.Atoi(vals["page"])
 	if err != nil {
 		log.Println("Cant decode request!")
-		log.Fatalln(err)
+		log.Println(err)
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]interface{}{"articles": articles, "msg": "unable"})
 		return
@@ -46,6 +46,7 @@ func ApiArticles(w http.ResponseWriter, r *http.Request) {
 	} else {
 		next = page + 1
 	}
+	//fmt.Println(prev, next, count)
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]interface{}{"articles": articles, "msg": msg, "next": next, "prev": prev})
 }
@@ -59,7 +60,7 @@ func ApiArticlesByTag(w http.ResponseWriter, r *http.Request) {
 	num, err := strconv.Atoi(vals["num"])
 	if err != nil {
 		log.Println("Cant decode request!")
-		log.Fatalln(err)
+		log.Println(err)
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]interface{}{"articles": articles, "msg": "unable"})
 		return
@@ -67,7 +68,7 @@ func ApiArticlesByTag(w http.ResponseWriter, r *http.Request) {
 	page, err := strconv.Atoi(vals["page"])
 	if err != nil {
 		log.Println("Cant decode request!")
-		log.Fatalln(err)
+		log.Println(err)
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]interface{}{"articles": articles, "msg": "unable"})
 		return
@@ -101,7 +102,7 @@ func ApiArticle(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(vals["id"])
 	if err != nil {
 		log.Println("Cant decode request!")
-		log.Fatalln(err)
+		log.Println(err)
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]interface{}{"articles": article, "msg": "unable"})
 		return

@@ -7,6 +7,12 @@
       </v-container>
     <Footer />    
     </v-main>
+    <v-overlay :value="$store.state.load" opacity="1" z-index="20">
+      <v-progress-circular
+        indeterminate
+        size="64"
+      ></v-progress-circular>
+    </v-overlay>
   </v-app>
 </template>
 

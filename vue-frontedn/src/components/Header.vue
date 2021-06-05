@@ -32,7 +32,7 @@ export default {
             categories: [
                 {name: "Home", icon: "mdi-home", path: "/"},
                 {name: "Articles", icon: "mdi-newspaper-variant", path: "/articles"},
-                {name: "Contacts", icon: "mdi-contacts", path: "/contacts"},
+                //{name: "Contacts", icon: "mdi-contacts", path: "/contacts"},
             ]
         }
     }
