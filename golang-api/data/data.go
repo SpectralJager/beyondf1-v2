@@ -51,9 +51,20 @@ const (
 	left join tags t on temp.tag_id = t.id
 	where t.id = $1;
 	`
+	getEvents = `select id, name, description, link, date_start, date_end, image_url from events order by date_start desc limit 2;`
 )
 
 // structures
+type Events struct {
+	ID         int       `json:"id" db:"id"`
+	Name       string    `json:"name" db:"name"`
+	Desc       string    `json:"description" db:"description"`
+	Link       string    `json:"link" db:"link"`
+	Image_url  string    `json:"image_url" db:"image_url"`
+	Date_start time.Time `json:"date_start" db:"date_start"`
+	Date_end   time.Time `json:"date_end" db:"date_end"`
+}
+
 type Article struct {
 	ID        int       `json:"id" db:"id"`
 	Title     string    `json:"title" db:"title"`
@@ -163,4 +174,35 @@ func GetArticlesByTag(n, page int, tag string) (*[]Article, string, int) {
 	row := db.QueryRowx(countArticlesByTag, tag)
 	row.Scan(&count)
 	return &articles, "success", count
+}
+
+func GetEvents() (*[]Events, string) {
+	db, err := connectDB()
+	if err != nil {
+		return new([]Events), "unable"
+	}
+	defer db.Close()
+
+	var events []Events
+	rows, err := db.Queryx(getEvents)
+	if err != nil {
+		log.Println("Cant get rows!")
+		log.Println(err)
+		return &events, "unable"
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var event Events
+		if err := rows.StructScan(&event); err != nil {
+			log.Println("Cant scan row")
+			log.Println(err)
+			continue
+		}
+		events = append(events, event)
+	}
+	if len(events) == 0 {
+		log.Println("Haven't articles!")
+		return &events, "unable"
+	}
+	return &events, "success"
 }

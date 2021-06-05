@@ -4,7 +4,20 @@
         <template v-for="article in articles" >
             <v-hover v-slot="{ hover }">
                 <v-card height="750px" outlined :key="article.id" style="position:relative;" class="article-card" :dark=" hover ? true : false" :elevetion="hover ? 12 : 2">
-                    <v-img height="50%" width="100%" :src="article.image_url"></v-img>
+                    <v-img height="50%" width="100%" :src="article.image_url">
+                        <template v-slot:placeholder>
+                            <v-row
+                            class="fill-height ma-0"
+                            align="center"
+                            justify="center"
+                            >
+                            <v-progress-circular
+                                indeterminate
+                                color="grey lighten-5"
+                            ></v-progress-circular>
+                            </v-row>
+                        </template>
+                    </v-img>
                     <div>
                         <v-card-title class="text-h6">{{ article.title }}</v-card-title>
                         <v-card-subtitle class="my-1 ">
@@ -48,7 +61,6 @@ export default {
             return text.slice(0,150)+"...";
         },
         async fetchArticles(){
-            this.$store.commit('toggleLoad');
             var url = this.$store.state.backend_url + "/articles/" + this.page + "/" + this.num;
             await fetch(url, {
                 method: "GET",
@@ -63,21 +75,27 @@ export default {
                 this.prev = data.prev;
                 }
             });
-            setTimeout(() => {
-                this.$store.commit('toggleLoad');
-            }, 1000)
+            
         },
         incPage(){
+            this.$store.commit('toggleLoad');
             if(this.next > 0){
                 this.page += 1
                 this.fetchArticles()
             }
+            setTimeout(() => {
+                    this.$store.commit('toggleLoad');
+            }, 1000)
         },
         decPage(){
+            this.$store.commit('toggleLoad');
             if(this.prev > 0){
                 this.page -= 1
                 this.fetchArticles()
             }
+            setTimeout(() => {
+                    this.$store.commit('toggleLoad');
+            }, 1000)
         },
         cancelAutoUpdate () {
             clearInterval(this.timer);
@@ -102,9 +120,16 @@ export default {
             }
         }
     },
+    beforeCreate(){
+        this.$store.commit('toggleLoad');
+    },
     mounted(){
         this.fetchArticles();
+        setTimeout(() => {
+                this.$store.commit('toggleLoad');
+        }, 1000)
         this.timer = setInterval(this.fetchArticles, 600000);
+        
     },
     beforeDestroy () {
       this.cancelAutoUpdate();
