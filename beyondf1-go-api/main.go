@@ -19,7 +19,7 @@ func main() {
 		return nil
 	})*/
 	// server
-	const addr = "127.0.0.1:8080"
+	const addr = ":8080"
 	log.Printf("Start listening on %s ...", addr)
 	err := http.ListenAndServe(addr, router)
 	log.Fatal(err)

@@ -11,7 +11,7 @@ import (
 )
 
 // db info
-const (
+var (
 	host     = os.Getenv("DB_HOST")
 	port     = os.Getenv("DB_PORT")
 	username = os.Getenv("DB_USERNAME")
@@ -79,7 +79,7 @@ type Article struct {
 // functions
 func connectDB() (*sqlx.DB, error) {
 	psqlInfo := fmt.Sprintf(
-		"host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+		"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		host, port, username, password, dbname,
 	)
 	db, err := sqlx.Open("postgres", psqlInfo)
