@@ -1,0 +1,93 @@
+version: "3"
+
+services: 
+    nginx:
+        image: nginx:latest
+        restart: always
+        volumes:
+            - ./nginx.conf:/etc/nginx/nginx.conf #:ro
+        depends_on: 
+            - admin
+            - backend
+            - postgresdb
+            - frontend
+        ports: 
+            - "80:80"
+        networks: 
+            - app-net
+
+    frontend:
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        ports:
+            - "80"
+        depends_on: 
+            - backend
+            - postgresdb
+        restart: always
+        networks: 
+            - app-net
+
+
+    admin:
+        image: strapi/strapi
+        env_file: .env
+        environment:
+            DATABASE_CLIENT: ${DATABASE_CLIENT}
+            DATABASE_NAME: ${DATABASE_NAME}
+            DATABASE_HOST: ${DATABASE_HOST}
+            DATABASE_PORT: ${DATABASE_PORT}
+            DATABASE_USERNAME: ${DATABASE_USERNAME}
+            DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+        volumes:
+            - ./admin-cms:/srv/app
+        ports:
+            - '1337'
+        depends_on:
+            - postgresdb
+        networks: 
+            - app-net
+        restart: always
+
+    backend:
+        build:
+            context: ./backend
+            dockerfile: Dockerfile
+        env_file: .env
+        restart: always
+        environment: 
+            DATABASE_NAME: ${DATABASE_NAME}
+            DATABASE_HOST: ${DATABASE_HOST}
+            DATABASE_PORT: ${DATABASE_PORT}
+            DATABASE_USERNAME: ${DATABASE_USERNAME}
+            DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+        ports: 
+            - "8000"
+        networks: 
+            - app-net
+        depends_on: 
+            - postgresdb
+
+    postgresdb:
+        image: postgres
+        restart: always
+        env_file: .env
+        environment: 
+            POSTGRES_USER: ${DATABASE_USERNAME}
+            POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+            POSTGRES_DB: ${DATABASE_NAME}
+        networks: 
+            - app-net
+        ports: 
+            - "5432"
+        volumes:
+            - data:/var/lib/postgresql/data
+
+volumes: 
+    data:
+
+networks: 
+    app-net:
+        driver: bridge
+    
